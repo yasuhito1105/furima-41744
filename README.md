@@ -61,18 +61,21 @@ Things you may want to cover:
 - belongs_to :user
 - belongs_to :product
 
+# 配送についてテーブル
+| column            |Type | options |
+|-------------------|------|--------|
+|配送料の負担         | string |null:false |
+|発送元の地域         | string| null:false |
+|発送までの日数        |string | null: false|
+# Association
+- has_many :product
+
 
 
 
 
  
 
-<!-- # 配送についてテーブル -->
-<!-- | column            |Type | options | -->
-<!-- |-------------------|------|--------| -->
-<!-- |配送料の負担         | string |null:false | -->
-<!-- |発送元の地域         | string| null:false | -->
-<!-- |発送までの日数        |string | null: false| -->
 
 
 <!-- # commntsテーブル -->
