@@ -13,7 +13,7 @@ Things you may want to cover:
 
 * Database creation PostgreSQL
 
-* Database initialization usersテーブル products（商品投稿）テーブル selling-prices（販売価格）テーブル Shipping-fees(配送料)テーブル
+* Database initialization usersテーブル products（商品投稿）テーブル selling_prices（販売価格）テーブル Shipping_fees(配送料)テーブル
 
 * How to run the test suite binding.pry
 
@@ -26,13 +26,13 @@ Things you may want to cover:
 # usersテーブル
 ｜column            ｜Type   | options  |
 |------------------|--------|--------- |
-|ニックネーム        | string | null:false| 
-|メールアドレス      | string | null:false,unique:true |
-|パスワード          |string | null:false|
+|nickname        | string | null:false| 
+|email           | string | null:false,unique:true |
+|password          |string | null:false|
 |encrypted_password| string | null:false|
-｜お名前(全角)       | string | null:false|
-｜お名前カナ(全角)    | string | null:false|
-|生年月日           | string |null:false|
+｜full_name              | string | null:false|
+｜name_kana              | string | null:false|
+| birthdate          | string |null:false|
 # Association
 - has_many :products
 - has_many :selling-price
@@ -41,20 +41,20 @@ Things you may want to cover:
 # productsテーブル
 |column           | Type | options | 
 |-----------------|------|---------|
-|商品画像          | text ｜ null: false|
-|商品名            |string| null:false | 
-|商品の説明        |string| null:false |
-|商品の詳細        |string| null:false |
-|カテゴリー        | sting| null:false |
-|商品の状態        | string| null:false |
+|image          | text ｜ null: false|
+|product_name            |string| null:false | 
+|description        |string| null:false |
+|product_details        |string| null:false |
+|category        | sting| null:false |
+|condition        | string| null:false |
 # Association
 - has_many :user
-- has_many :selling-price
+- has_many :selling_price
 
-# selling-priceテーブル
+# selling_priceテーブル
 |column         | Type     | options|
 |---------------|--------- |--------|
-|価格           | string    |null:false|
+|price           | string    |null:false|
 |user          | references |null:false,foreign_key: true|
 |product|       | references | null:false,foreign_key: true|
 # Association
@@ -64,23 +64,8 @@ Things you may want to cover:
 # 配送についてテーブル
 | column            |Type | options |
 |-------------------|------|--------|
-|配送料の負担         | string |null:false |
-|発送元の地域         | string| null:false |
-|発送までの日数        |string | null: false|
+|shipping_cost         | string |null:false |
+|shipping_origin         | string| null:false |
+|shipping_days        |string | null: false|
 # Association
 - has_many :product
-
-
-
-
-
- 
-
-
-
-<!-- # commntsテーブル -->
-<!-- | column | Type | options | -->
-<!-- |--------|------|---------| -->
-
-
-
