@@ -9,13 +9,13 @@ Things you may want to cover:
 
 * System dependencies devise
 
-* Configuration 
+* Configuration rails７
 
 * Database creation PostgreSQL
 
 * Database initialization usersテーブル products（商品投稿）テーブル commentsテーブル selling-prices（販売価格）テーブル Shipping-fees(配送料)テーブル
 
-* How to run the test suite
+* How to run the test suite binding.pry
 
 * Services (job queues, cache servers, search engines, etc.)
 
