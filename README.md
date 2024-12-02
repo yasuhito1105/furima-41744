@@ -5,20 +5,20 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version _7.0.0_
 
-* System dependencies
+* System dependencies devise
 
-* Configuration
+* Configuration 
 
-* Database creation
+* Database creation PostgreSQL
 
-* Database initialization
+* Database initialization usersテーブル products（商品投稿）テーブル commentsテーブル selling-prices（販売価格）テーブル Shipping-fees(配送料)テーブル
 
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+* Deployment instructions render
 
 * ...
