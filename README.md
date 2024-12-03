@@ -37,7 +37,7 @@ Things you may want to cover:
 
 # Association
 - has_many :products
-- has_many :delivery_address
+- has_one :product_purchase_history
 
 
 
@@ -50,7 +50,7 @@ Things you may want to cover:
 | product_description       | text       | null:false |
 | category_id               | integer    | null:false |
 | product_condition_id      | integer    | null:false |
-| Shipping fee_id           | integer    | null:false |
+| shipping_fee_id           | integer    | null:false |
 | shipping_origin_region_id | integer    | null:false |
 | delivery_days_id          | integer    | null:false |
 
