@@ -37,7 +37,7 @@ Things you may want to cover:
 
 # Association
 - has_many :products
-- has_many :product_purchase_history
+- has_many :product_purchase_histories
 
 
 
@@ -52,7 +52,7 @@ Things you may want to cover:
 | product_condition_id      | integer    | null:false |
 | shipping_fee_id           | integer    | null:false |
 | shipping_origin_region_id | integer    | null:false |
-| delivery_days_id          | integer    | null:false |
+| delivery_day_id          | integer    | null:false |
 
 # Association
 - belongs_to :user
