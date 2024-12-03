@@ -37,37 +37,46 @@ Things you may want to cover:
 
 # Association
 - has_many :products
-- has_many :selling_price
 
 
-# productsテーブル
-| Column                  | Type       | Options    | 
-|-------------------------|------------|----------- |
-| price                   | integer    | null:false |
-| product_name            | string     | null:false | 
-| user                    | references | null:false, foreign_key: true |
-| category_id             | integer    | null:false |
-| product_condition_id    | integer    | null:false |
-| product_description     | text       | null:false |
-| product_details         | string     | null:false |
-| delivery_days_id        | integer    | null:false |
+# productsテーブル                     商品情報
+| Column                    | Type       | Options    | 
+|-------------------------  |------------|----------- |
+| price                     | integer    | null:false |
+| product_name              | string     | null:false | 
+| user                      | references | null:false, foreign_key: true |
+| product_description       | text       | null:false |
+| product_details           | string     | null:false |
+| category_id               | integer    | null:false |
+| product_condition_id      | integer    | null:false |
+| shipping_origin_region_id | integer    | null:false |
+| delivery_days_id          | integer    | null:false |
 
 # Association
 - belongs_to :user
-- has_one    :delivery_address
+- has_one :product_purchase_history
 
-
-# delivery_addressテーブル
-| Column                 | Type       | Options    |
-|------------------------|------------|------------|
-| product_id             | references | null:false,foreign_key: true |
-| postal_code            | string     | null:false |
-| prefecture             | string     | null:false |
-| city                   | string     | null:false |
-| street_address         | string     | null:false |
-| building_name          | string     |            |
-| phone_number           | string     | null:false |
-
+# delivery_addressテーブル             配送先住所
+| Column                      | Type       | Options    |
+|-----------------------------|------------|------------|
+| postal_code                 | string     | null:false |
+| shipping_origin_region_id   | integer    | null:false |
+| city                        | string     | null:false |
+| street_address              | string     | null:false |
+| building_name               | string     |            |
+| phone_number                | string     | null:false |
+| product_purchase_history_id | references | null:false, foreign_key: true |
 
 # Association
-- has_one :products
+- has_one :product_purchase_history
+- belongs_to :product
+
+
+# Product_purchase_historyテーブル     商品購入履歴
+| Column                 | Type       | Options   |
+|------------------------|------------|-----------|
+| user_id                | references | null:false, foreign_key: true |
+| product_id             | references | null:false, foreign_key: true |
+
+# Association
+- belongs_to :delivery_address
