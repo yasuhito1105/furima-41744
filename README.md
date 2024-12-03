@@ -37,7 +37,7 @@ Things you may want to cover:
 
 # Association
 - has_many :products
-- has_one :product_purchase_history
+- has_many :product_purchase_history
 
 
 
