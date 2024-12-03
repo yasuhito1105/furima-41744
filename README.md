@@ -26,6 +26,8 @@ Things you may want to cover:
 # usersテーブル
 | Column            | Type   | Options    |
 |------------------ |--------|------------|
+| nickname          | string | null:false |
+| email             | string | null:false unique:true |
 | encrypted_password| string | null:false |
 | last_name         | string | null:false |
 | first_name        | string | null:false |
@@ -35,40 +37,37 @@ Things you may want to cover:
 
 # Association
 - has_many :products
-- has_many :selling-price
+- has_many :selling_price
 
 
 # productsテーブル
 | Column                  | Type       | Options    | 
 |-------------------------|------------|----------- |
-| product_name            | string     | null:false | 
-| description             | text       | null:false |
-| product_details         | string     | null:false |
-| product_condition_id    | string     | null:false |
 | price                   | integer    | null:false |
-| user_id                 | references | null:false |
+| product_name            | string     | null:false | 
+| user                    | references | null:false, foreign_key: true |
 | category_id             | integer    | null:false |
+| product_condition_id    | integer    | null:false |
+| product_description     | text       | null:false |
+| product_details         | string     | null:false |
+| delivery_days_id        | integer    | null:false |
 
 # Association
 - belongs_to :user
 - has_one    :delivery_address
-<!-- - has_one    :selling_price -->
 
-
-<!-- # selling_priceテーブル -->
-<!-- | Column        | Type       | Options                         | -->
-<!-- |---------------|------------|---------------------------------| -->
-<!-- | products_id   | references | null: false, foreign_key: true  | -->
-
-<!-- # Association -->
-<!-- - has_one :products -->
 
 # delivery_addressテーブル
-| Column              | Type       | Options    |
-|-------------------- |------------|------------|
-| deliver_address_id  | integer    | null:false |
-| product_id          | references | null:false |
-| delivery_days_id    | integer    | null:false |
+| Column                 | Type       | Options    |
+|------------------------|------------|------------|
+| product_id             | references | null:false,foreign_key: true |
+| postal_code            | string     | null:false |
+| prefecture             | string     | null:false |
+| city                   | string     | null:false |
+| street_address         | string     | null:false |
+| building_name          | string     |            |
+| phone_number           | string     | null:false |
+
 
 # Association
 - has_one :products
