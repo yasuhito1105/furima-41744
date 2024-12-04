@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :index
-  # 仮のindex入れてる
+  root to: 'items#index'
+  
 end
