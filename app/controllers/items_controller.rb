@@ -9,9 +9,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(user_params)
+    @item = Item.new(item_params)
     if @item.save
-      redirect_to user_path, notice
+      redirect_to items_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,12 +22,9 @@ class ItemsController < ApplicationController
 
   private
 
-  def message_params
-    permitted_attributes = [:user, :image, :product_name, :product_description, :category_id, :product_condition_id,
-                            :shipping_fee_id, :shipping_origin_region_id, :price]
-
-    params.require(:item).permit(:user, :image, :product_name, :product_description, :category_id, :product_condition_id,
-                                 :shipping_fee_id, :shipping_origin_region_id, :price).merge(user_id: current_user.id)
+  def item_params
+    params.require(:item).permit(:product_name, :image, :product_description, :category_id, :product_condition_id, :shipping_fee_id, :shipping_origin_region_id,
+                                 :delivery_day_id, :price).merge(user_id: current_user.id)
   end
 
   # def move_to_index
