@@ -1,23 +1,30 @@
 class ItemsController < ApplicationController
-  # before_action :move_to_index, except: [:index]
+  before_action :authenticate_user!, only: [:new, :create]
 
   def index
   end
 
-  # def new
-  # @item = Item.new
-  # end
+  def new
+    @item = Item.new
+  end
 
-  # def create
-  #   @user = User.new(user_params)
-  #   if @user.save
-  #     redirect_to user_path, notice
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # end
+  def create
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   def destroy
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:product_name, :image, :product_description, :category_id, :product_condition_id, :shipping_fee_id, :shipping_origin_region_id,
+                                 :delivery_day_id, :price).merge(user_id: current_user.id)
   end
 
   # def move_to_index
