@@ -26,9 +26,12 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    item.update(item_params)
-    redirect_to root_path
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to root_path(@item.id)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -36,6 +39,13 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def correct_user
+    @item = Item.find(params[:id])
+    return if current_user.id == @item.user.id
+
+    redirect_to root_path
+  end
 
   def item_params
     params.require(:item).permit(:product_name, :image, :product_description, :category_id, :product_condition_id, :shipping_fee_id, :shipping_origin_region_id,
