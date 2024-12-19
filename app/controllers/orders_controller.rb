@@ -1,15 +1,18 @@
 class OrdersController < ApplicationController
-  before_action :set_item, only: [:index, :new, :create]
-  before_action :authenticate_user!, except: [:index]
+  before_action :set_item, only: [:index, :create]
+  before_action :authenticate_user!
+  # before_action :ensure_authorized, only:[:index]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_delivery_address_form = OrderDeliveryAddressForm.new
+    if user_signed_in? && @item.order.present?
+      redirect_to root_path   
+    end
   end
 
   def create
     @order_delivery_address_form = OrderDeliveryAddressForm.new(order_params)
-    
     if @order_delivery_address_form.valid?
       pay_item
 
@@ -22,6 +25,9 @@ class OrdersController < ApplicationController
   end
 
   private
+  
+
+  
 
   def set_item
     @item = Item.find(params[:item_id])
@@ -40,5 +46,11 @@ class OrdersController < ApplicationController
       card: params[:token],
       currency: 'jpy'
     )
+  # def ensure_authorized
+  #     if   @items.order
+  #       redirect_to root_path
+  #     end
+  # end
+
   end
 end
