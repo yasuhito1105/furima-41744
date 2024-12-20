@@ -1,14 +1,11 @@
 class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
   before_action :authenticate_user!
-  # before_action :ensure_authorized, only:[:index]
+  before_action :redirect_if_ordered, only: [:index]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_delivery_address_form = OrderDeliveryAddressForm.new
-    if user_signed_in? && @item.order.present?
-      redirect_to root_path   
-    end
   end
 
   def create
@@ -34,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order_delivery_address_form).permit(:price, :postal_code, :shipping_origin_region_id, :city, :street_address,
+    params.require(:order_delivery_address_form).permit(:postal_code, :shipping_origin_region_id, :city, :street_address,
                                                         :building_name, :phone_number)
           .merge(token: params[:token], user_id: current_user.id, item_id: params[:item_id])
   end
@@ -46,11 +43,11 @@ class OrdersController < ApplicationController
       card: params[:token],
       currency: 'jpy'
     )
-  # def ensure_authorized
-  #     if   @items.order
-  #       redirect_to root_path
-  #     end
-  # end
-
   end
+
+  def redirect_if_ordered
+    if user_signed_in? && @item.order.present?
+      redirect_to root_path   
+  end
+
 end

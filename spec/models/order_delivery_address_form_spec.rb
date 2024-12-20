@@ -32,6 +32,11 @@ RSpec.describe OrderDeliveryAddressForm, type: :model do
         @order_delivery_address_form.valid?
         expect(@order_delivery_address_form.errors.full_messages).to include("Postal code can't be blank")
       end
+      it 'postal_codeは-がないと保存できないこと' do
+        @order_delivery_address_form.postal_code = '1234567'
+        @order_delivery_address_form.valid?
+        expect(@order_delivery_address_form.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+      end
       it 'shipping_origin_region_idが1では保存できないこと' do
         @order_delivery_address_form.shipping_origin_region_id = 1
         expect(@order_delivery_address_form.valid?).to be_falsey
@@ -56,16 +61,21 @@ RSpec.describe OrderDeliveryAddressForm, type: :model do
         @order_delivery_address_form.valid?
         expect(@order_delivery_address_form.errors.full_messages).to include("Phone number can't be blank")
       end
-      # it 'phone_numberの桁が足りないと保存できないこと' do
-      #   @order_delivery_address_form.phone_number = '12345678'
-      #   @order_delivery_address_form.valid?
-      #   expect(@order_delivery_address_form.errors.full_messages).to include('is too short')
-      # end
-      # it 'phone_numberに数字以外の文字が入力されると保存できないこと' do
-      #   @order_delivery_address_form.phone_number = '12345abc'
-      #   @order_delivery_address_form.valid?
-      #   expect(@order_delivery_address_form.errors.full_messages).to include('is invalid. Input only number')
-      # end
+      it 'phone_numberの9桁以下では保存できないこと' do
+        @order_delivery_address_form.phone_number = '12345678'
+        @order_delivery_address_form.valid?
+        expect(@order_delivery_address_form.errors[:phone_number]).to include("Input only number. is too short. is too long")
+      end
+      it 'phone_numberの12桁以上では保存できないこと' do
+        @order_delivery_address_form.phone_number = '123456789101'
+        @order_delivery_address_form.valid?
+        expect(@order_delivery_address_form.errors[:phone_number]).to include("Input only number. is too short. is too long")
+      end
+      it 'phone_numberに半角数字以外の文字が入力されると保存できないこと' do
+        @order_delivery_address_form.phone_number = '12345abc'
+        @order_delivery_address_form.valid?
+        expect(@order_delivery_address_form.errors[:phone_number]).to include("Input only number. is too short. is too long")
+      end
       it 'userが紐付いていないと保存できないこと' do
         @order_delivery_address_form.user_id = nil
         @order_delivery_address_form.valid?

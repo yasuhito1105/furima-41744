@@ -1,5 +1,4 @@
 const pay = () => {
-  console.log("カード情報トークン化のためのJavaScript コンソールでの起動確認のために残しています");
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey)
   const elements = payjp.elements();
