@@ -46,9 +46,9 @@ class OrdersController < ApplicationController
   end
 
   def redirect_if_ordered
-    if user_signed_in? && @item.order.present?
+    if @item.order.present? && current_user != @item.order
       redirect_to root_path
     end
   end
-
+  
 end
