@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :redirect_if_ordered, only: [:index]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_delivery_address_form = OrderDeliveryAddressForm.new
   end
 
@@ -16,15 +16,12 @@ class OrdersController < ApplicationController
       @order_delivery_address_form.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
 
   private
-  
-
-  
 
   def set_item
     @item = Item.find(params[:item_id])
@@ -37,7 +34,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item[:price],
       card: params[:token],
@@ -46,9 +43,8 @@ class OrdersController < ApplicationController
   end
 
   def redirect_if_ordered
-    if @item.order.present? || current_user == @item.user
-      redirect_to root_path
-    end
+    return unless @item.order.present? || current_user == @item.user
+
+    redirect_to root_path
   end
-  
 end

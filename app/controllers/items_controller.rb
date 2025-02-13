@@ -26,9 +26,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if user_signed_in? && @item.order.present?
-      redirect_to root_path   
-    end
+    return unless user_signed_in? && @item.order.present?
+
+    redirect_to root_path
   end
 
   def update
@@ -58,6 +58,4 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:product_name, :image, :product_description, :category_id, :product_condition_id, :shipping_fee_id, :shipping_origin_region_id,
                                  :delivery_day_id, :price).merge(user_id: current_user.id)
   end
-
-
 end
