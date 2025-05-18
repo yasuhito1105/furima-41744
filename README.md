@@ -52,7 +52,7 @@ Things you may want to cover:
 | product_condition_id      | integer    | null:false |
 | shipping_fee_id           | integer    | null:false |
 | shipping_origin_region_id | integer    | null:false |
-| delivery_day_id          | integer    | null:false |
+| delivery_day_id           | integer    | null:false |
 
 # Association
 - belongs_to :user
@@ -76,8 +76,8 @@ Things you may want to cover:
 # Product_purchase_historyテーブル     商品購入履歴
 | Column                 | Type       | Options   |
 |------------------------|------------|-----------|
-| user                | references | null:false, foreign_key: true |
-| product             | references | null:false, foreign_key: true |
+| user                   | references | null:false, foreign_key: true |
+| product                | references | null:false, foreign_key: true |
 
 # Association
 - belongs_to :user
