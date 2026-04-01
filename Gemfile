@@ -5,7 +5,7 @@ ruby "3.0.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", " = 7.0.4"
-
+gem 'logger'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -84,6 +84,6 @@ gem 'image_processing', '~> 1.2'
 gem 'active_hash'
 gem 'payjp'
 gem 'gon'
-gem 'logger'
 gem 'ostruct'
 gem 'base64'
+gem 'concurrent-ruby', '1.3.4'
